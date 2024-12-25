@@ -65,11 +65,13 @@ body {
 .author {
     font-size: 1em;
     margin-bottom: 20px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 /* Hero image - no border radius */
 .hero-image {
-    max-width: 350px;
+    max-width: 300px;
     margin: 0 auto 40px;
     border: 1px solid #333;
     overflow: hidden;
@@ -153,4 +155,112 @@ body {
     .gallery-item img {
         width: 100%;
     }
+} 
+
+/* Offer section styles */
+.offer-section {
+    max-width: 350px;
+    margin: 0 auto 40px;
+    text-align: center;
+}
+
+.offer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.amount-input,
+.email-input {
+    display: flex;
+    gap: 10px;
+}
+
+.offer-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #1DA1F2;
+    border-radius: 20px;
+    background: transparent;
+    color: white;
+    font-family: "Courier New", monospace;
+}
+
+.offer-form input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.offer-button {
+    padding: 10px 20px;
+    background: #1DA1F2;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    font-family: "Courier New", monospace;
+    transition: background-color 0.2s;
+}
+
+.offer-button:hover {
+    background: #1a91da;
+}
+
+/* Remove spinner from number input */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+} 
+
+/* Highest bid section */
+.highest-bid {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid rgba(29, 161, 242, 0.3);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.5);
+    font-family: "Courier New", monospace;
+    text-align: left;
+    min-height: 50px;
+    width: 100%;
+    overflow-y: auto;  /* Allow scrolling if many lines */
+    max-height: 150px; /* Limit height */
+}
+
+.typewriter {
+    font-family: "Courier New", monospace;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9em;
+    letter-spacing: 0.05em;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.terminal-line {
+    min-height: 20px;
+    font-size: 0.9em;  /* Same size as parent */
+}
+
+.old-text {
+    color: rgba(255, 255, 255, 0.3);  /* Just dim the color, don't change size */
+    transition: all 0.3s ease;
+}
+
+/* Cursor animation - only show on the latest line */
+.terminal-line:last-child::after {
+    content: '_';
+    color: #1DA1F2;
+    animation: blink 0.8s step-end infinite;
+    font-weight: bold;
+}
+
+@keyframes blink {
+    from, to { opacity: 1 }
+    50% { opacity: 0 }
 } 
