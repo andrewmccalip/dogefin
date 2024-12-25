@@ -50,9 +50,10 @@
                    class="gallery-item" 
                    data-aspect="{{ image.aspect if image.aspect else 'landscape' }}"
                    target="_blank">
-                    <img src="{{ url_for('static', filename='images/' + image.full) }}" 
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+                         data-src="{{ url_for('static', filename='images/' + image.full) }}" 
                          alt="{{ image.caption }}"
-                         loading="lazy">
+                         class="lazy">
                 </a>
                 {% endfor %}
             </div>
@@ -68,6 +69,7 @@
         const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
         let terminalHistory = [];
+        let isInitialized = false;  // Add flag to prevent double initialization
 
         async function typewriterAnimation(text, element, speed = 80) {
             // Add text to history
@@ -80,47 +82,92 @@
             for (let i = 0; i < terminalHistory.length; i++) {
                 const line = document.createElement('div');
                 line.classList.add('terminal-line');
+                
+                // Create new line with empty content
+                element.appendChild(line);
+                
                 if (i < terminalHistory.length - 1) {
+                    // Animate old lines too, just faster
                     line.classList.add('old-text');
-                    line.textContent = terminalHistory[i];
-                } else {
-                    // Animate only the newest line
                     for (let j = 0; j < terminalHistory[i].length; j++) {
                         line.textContent = terminalHistory[i].substring(0, j + 1);
-                        await new Promise(resolve => setTimeout(resolve, speed));
+                        await new Promise(resolve => setTimeout(resolve, speed / 2));
+                    }
+                } else {
+                    // Format price in the latest line if it exists
+                    if (terminalHistory[i].includes('$')) {
+                        const parts = terminalHistory[i].split('$');
+                        for (let j = 0; j < parts[0].length; j++) {
+                            line.textContent = parts[0].substring(0, j + 1);
+                            await new Promise(resolve => setTimeout(resolve, speed));
+                        }
+                        line.innerHTML += `<span class="price">$${parts[1]}</span>`;
+                    } else {
+                        // Regular text animation
+                        for (let j = 0; j < terminalHistory[i].length; j++) {
+                            line.textContent = terminalHistory[i].substring(0, j + 1);
+                            await new Promise(resolve => setTimeout(resolve, speed));
+                        }
                     }
                 }
-                element.appendChild(line);
             }
         }
 
-        async function getAndDisplayHighestBid() {
-            const typewriterElement = document.getElementById('highestBidText');
-            
-            await typewriterAnimation('Retrieving highest bid from db...', typewriterElement);
-            
-            try {
-                const { data, error } = await supabaseClient
-                    .from('offer')
-                    .select('price')
-                    .order('price', { ascending: false })
-                    .limit(1);
+        async function initializeApp() {
+            // Get data first
+            const { data, error } = await supabaseClient
+                .from('offer')
+                .select('price')
+                .order('price', { ascending: false })
+                .limit(1);
 
-                if (error) throw error;
-
+            // Only after data is fetched, start the animation
+            if (!error) {
                 const highestBid = data && data[0] ? data[0].price : 0;
-                await typewriterAnimation(`Current highest bid: $${highestBid.toLocaleString()}`, typewriterElement);
+                const typewriterElement = document.getElementById('highestBidText');
+                const bidContainer = document.querySelector('.highest-bid');
                 
-            } catch (error) {
-                console.error('Error fetching highest bid:', error);
-                await typewriterAnimation('Error fetching highest bid', typewriterElement);
+                // Clear any existing content
+                typewriterElement.innerHTML = '';
+                terminalHistory = [];
+
+                // Show container and start animation sequence
+                bidContainer.classList.add('visible');
+                
+                // First message
+                const line1 = document.createElement('div');
+                line1.classList.add('terminal-line');
+                typewriterElement.appendChild(line1);
+                for (let i = 0; i < 'Retrieving highest bid from db...'.length; i++) {
+                    line1.textContent = 'Retrieving highest bid from db...'.substring(0, i + 1);
+                    await new Promise(resolve => setTimeout(resolve, 80));
+                }
+                line1.classList.add('old-text');
+
+                // Second message
+                const line2 = document.createElement('div');
+                line2.classList.add('terminal-line');
+                typewriterElement.appendChild(line2);
+                const message = 'Current highest bid: ';
+                for (let i = 0; i < message.length; i++) {
+                    line2.textContent = message.substring(0, i + 1);
+                    await new Promise(resolve => setTimeout(resolve, 80));
+                }
+                line2.innerHTML += `<span class="price">$${highestBid.toLocaleString()}</span>`;
             }
+
+            // Load images after animations
+            setTimeout(() => {
+                const lazyImages = document.querySelectorAll('img.lazy');
+                lazyImages.forEach(img => {
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                });
+            }, 1000);
         }
 
-        // Run on page load
-        window.addEventListener('load', () => {
-            getAndDisplayHighestBid();
-        });
+        // Single initialization point
+        initializeApp();
 
         document.getElementById('submitOffer').addEventListener('click', function() {
             const price = document.getElementById('offerAmount').value;
@@ -160,6 +207,7 @@
                     document.querySelector('.email-input').style.display = 'none';
 
                     // Update the highest bid display after successful submission
+                    isInitialized = false;  // Reset flag to allow update
                     getAndDisplayHighestBid();
                     
                 } catch (error) {

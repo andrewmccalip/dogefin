@@ -229,6 +229,12 @@ input[type=number] {
     width: 100%;
     overflow-y: auto;  /* Allow scrolling if many lines */
     max-height: 150px; /* Limit height */
+    opacity: 0;  /* Start hidden */
+    transition: opacity 0.3s ease;
+}
+
+.highest-bid.visible {
+    opacity: 1;
 }
 
 .typewriter {
@@ -244,7 +250,9 @@ input[type=number] {
 
 .terminal-line {
     min-height: 20px;
-    font-size: 0.9em;  /* Same size as parent */
+    font-size: 0.9em;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
 }
 
 .old-text {
@@ -263,4 +271,25 @@ input[type=number] {
 @keyframes blink {
     from, to { opacity: 1 }
     50% { opacity: 0 }
+} 
+
+/* Add this to your CSS */
+.price {
+    color: #1DA1F2;  /* Twitter blue */
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+} 
+
+/* Add lazy loading styles */
+.lazy {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+.lazy.loaded {
+    opacity: 1;
 } 
