@@ -67,12 +67,11 @@ body {
     margin-bottom: 20px;
 }
 
-/* Hero image */
+/* Hero image - no border radius */
 .hero-image {
-    max-width: 400px;
+    max-width: 350px;
     margin: 0 auto 40px;
     border: 1px solid #333;
-    border-radius: 20px;
     overflow: hidden;
 }
 
@@ -88,25 +87,28 @@ body {
     flex-direction: column;
     gap: 20px;
     padding: 10px;
-    width: 100%;
+    align-items: center;
 }
 
 .gallery-item {
     position: relative;
     background: #000;
     overflow: hidden;
+    max-width: 800px;
+    max-height: 35vh;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
     border-radius: 20px;
-    width: 100%;
-    max-height: 25vh;
 }
 
 .gallery-item img {
-    width: 100%;
     height: auto;
-    max-height: 25vh;
-    object-fit: contain;
+    max-height: 35vh;
+    object-fit: cover;
     display: block;
     border-radius: 20px;
+    background: #000;
 }
 
 /* Remove the aspect ratio handling since we're using fixed heights */
@@ -143,6 +145,6 @@ body {
     }
     
     .gallery-item {
-        height: 30vh; /* Slightly taller on mobile for better visibility */
+        width: 100%;
     }
 } 

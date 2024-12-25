@@ -30,14 +30,39 @@
         <section class="gallery-section">
             <div class="gallery-grid">
                 {% for image in images %}
-                <div class="gallery-item" data-aspect="{{ image.aspect if image.aspect else 'landscape' }}">
+                <a href="{{ url_for('static', filename='images/' + image.full) }}" 
+                   class="gallery-item" 
+                   data-aspect="{{ image.aspect if image.aspect else 'landscape' }}"
+                   target="_blank">
                     <img src="{{ url_for('static', filename='images/' + image.full) }}" 
                          alt="{{ image.caption }}"
                          loading="lazy">
-                </div>
+                </a>
                 {% endfor %}
             </div>
         </section>
     </main>
+
+    <div class="modal" id="imageModal">
+        <img id="modalImage" src="" alt="">
+    </div>
+
+    <script>
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        
+        // Add click handlers to all gallery items
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function() {
+                modal.classList.add('active');
+                modalImg.src = this.src;
+            });
+        });
+        
+        // Close modal when clicking anywhere
+        modal.addEventListener('click', function() {
+            this.classList.remove('active');
+        });
+    </script>
 </body>
 </html> 
