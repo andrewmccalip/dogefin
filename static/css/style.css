@@ -88,6 +88,8 @@ body {
     gap: 20px;
     padding: 10px;
     align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .gallery-item {
@@ -95,7 +97,7 @@ body {
     background: #000;
     overflow: hidden;
     max-width: 800px;
-    max-height: 35vh;
+    width: auto;
     cursor: pointer;
     display: block;
     text-decoration: none;
@@ -103,10 +105,10 @@ body {
 }
 
 .gallery-item img {
-    height: auto;
-    max-height: 35vh;
-    object-fit: cover;
     display: block;
+    max-height: 35vh;
+    width: auto;
+    object-fit: contain;
     border-radius: 20px;
     background: #000;
 }
@@ -145,6 +147,10 @@ body {
     }
     
     .gallery-item {
+        width: 95%;  /* Give some margin on mobile */
+    }
+    
+    .gallery-item img {
         width: 100%;
     }
 } 

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response
 from PIL import Image
 import os
 
@@ -44,7 +44,14 @@ for i in range(1, 32):
 
 @app.route('/')
 def index():
-    return render_template('index.html', images=gallery_images)
+    response = make_response(render_template('index.html', images=gallery_images))
+    
+    # Add security headers
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    
+    return response
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(host='0.0.0.0', port=8080) 
