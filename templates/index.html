@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doge to the Moon</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <main id="main-content">
+        <!-- Twitter Header -->
+        <div class="twitter-header">
+            <a href="https://twitter.com/andrewmccalip" class="twitter-link">
+                <img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter">
+                <span>Slide into DMs with your offer</span>
+            </a>
+        </div>
+
+        <header class="site-header">
+            <h1 class="title">"Doge to the moon"</h1>
+            <p class="subtitle">A physical manifestation of internet memes</p>
+            <p class="author">Brought to you by the slightly unhinged LA99 superconductor engineer, Andrew McGalip</p>
+            
+            <!-- Hero Image -->
+            <div class="hero-image">
+                <img src="{{ url_for('static', filename='images/header.jpg') }}" alt="I will succeed because I'm crazy">
+            </div>
+        </header>
+
+        <section class="gallery-section">
+            <div class="gallery-grid">
+                {% for image in images %}
+                <div class="gallery-item" data-aspect="{{ image.aspect if image.aspect else 'landscape' }}">
+                    <img src="{{ url_for('static', filename='images/' + image.full) }}" 
+                         alt="{{ image.caption }}"
+                         loading="lazy">
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html> 
