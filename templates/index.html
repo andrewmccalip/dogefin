@@ -211,7 +211,7 @@
 
                     // Update the highest bid display after successful submission
                     isInitialized = false;  // Reset flag to allow update
-                    getAndDisplayHighestBid();
+                    initializeApp();  // Changed from getAndDisplayHighestBid to initializeApp
                     
                 } catch (error) {
                     console.error('Catch error:', error);
