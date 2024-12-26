@@ -134,15 +134,18 @@
                 // Show container and start animation sequence
                 bidContainer.classList.add('visible');
                 
-                // First message
+                // First message (faster typing)
                 const line1 = document.createElement('div');
                 line1.classList.add('terminal-line');
                 typewriterElement.appendChild(line1);
                 for (let i = 0; i < 'Retrieving highest bid from db...'.length; i++) {
                     line1.textContent = 'Retrieving highest bid from db...'.substring(0, i + 1);
-                    await new Promise(resolve => setTimeout(resolve, 80));
+                    await new Promise(resolve => setTimeout(resolve, 30));  // Faster typing (was 80)
                 }
                 line1.classList.add('old-text');
+
+                // Pause for 2 seconds
+                await new Promise(resolve => setTimeout(resolve, 2000));
 
                 // Second message
                 const line2 = document.createElement('div');

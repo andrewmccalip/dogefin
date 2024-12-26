@@ -51,20 +51,20 @@ body {
 }
 
 .title {
-    font-size: 2.5em;
-    margin-bottom: 10px;
+    font-size: 2.2em;
+    margin-bottom: 8px;
     color: #fff;
     font-weight: normal;
 }
 
 .subtitle {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    font-size: 1.1em;
+    margin-bottom: 8px;
 }
 
 .author {
-    font-size: 1em;
-    margin-bottom: 20px;
+    font-size: 0.9em;
+    margin-bottom: 15px;
     font-style: italic;
     color: rgba(255, 255, 255, 0.7);
 }
@@ -160,14 +160,14 @@ body {
 /* Offer section styles */
 .offer-section {
     max-width: 350px;
-    margin: 0 auto 40px;
+    margin: 0 auto 30px;
     text-align: center;
 }
 
 .offer-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .amount-input,
@@ -218,14 +218,14 @@ input[type=number] {
 
 /* Highest bid section */
 .highest-bid {
-    margin-top: 20px;
-    padding: 15px;
+    margin-top: 15px;
+    padding: 12px;
     border: 1px solid rgba(29, 161, 242, 0.3);
     border-radius: 4px;
     background: rgba(0, 0, 0, 0.5);
     font-family: "Courier New", monospace;
     text-align: left;
-    min-height: 50px;
+    min-height: 45px;
     width: 100%;
     overflow-y: auto;  /* Allow scrolling if many lines */
     max-height: 150px; /* Limit height */
@@ -240,17 +240,17 @@ input[type=number] {
 .typewriter {
     font-family: "Courier New", monospace;
     color: rgba(255, 255, 255, 0.5);
-    font-size: 0.9em;
+    font-size: 0.85em;
     letter-spacing: 0.05em;
-    padding: 5px;
+    padding: 3px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 3px;
 }
 
 .terminal-line {
-    min-height: 20px;
-    font-size: 0.9em;
+    min-height: 18px;
+    font-size: 0.85em;
     opacity: 0;
     animation: fadeIn 0.3s forwards;
 }
