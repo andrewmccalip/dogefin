@@ -18,8 +18,8 @@ body {
 /* Twitter header */
 .twitter-header {
     text-align: right;
-    padding: 10px 20px;
-    margin-bottom: 20px;
+    padding: 5px 20px;
+    margin-bottom: 15px;
 }
 
 .twitter-link {
@@ -29,7 +29,7 @@ body {
     text-decoration: none;
     color: #1DA1F2;
     font-size: 0.9em;
-    padding: 8px 16px;
+    padding: 6px 14px;
     border: 1px solid #1DA1F2;
     border-radius: 20px;
 }
@@ -71,8 +71,8 @@ body {
 
 /* Hero image - no border radius */
 .hero-image {
-    max-width: 300px;
-    margin: 0 auto 40px;
+    max-width: 250px;
+    margin: 0 auto 30px;
     border: 1px solid #333;
     overflow: hidden;
 }
